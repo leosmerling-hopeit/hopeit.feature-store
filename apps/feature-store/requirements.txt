@@ -1,1 +1,0 @@
-hopeit.engine[web,cli,redis-streams,fs-storage,redis-storage,config-manager]

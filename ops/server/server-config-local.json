@@ -1,0 +1,21 @@
+{
+    "streams": {
+      "stream_manager": "hopeit.redis_streams.RedisStreamManager",
+      "connection_str": "redis://localhost:6379",
+      "delay_auto_start_seconds": 10
+    },
+    "logging": {
+      "log_level": "DEBUG",
+      "log_path": "${HOPEIT_FEATURE_STORE_WORK_DIR}/logs/"
+    },
+    "auth": {
+      "auth_passphrase": "dev-local",
+      "secrets_location": "${HOPEIT_FEATURE_STORE_WORK_DIR}/.secrets/",
+      "create_keys": true,
+      "default_auth_methods": ["Unsecured"],
+      "domain": "localhost"
+    },
+    "api": {
+      "docs_path": "/api/docs"
+    }
+  }
