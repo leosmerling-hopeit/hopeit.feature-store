@@ -127,3 +127,7 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+#hopeit.feature_store specific
+_work/
+**/.secrets/
