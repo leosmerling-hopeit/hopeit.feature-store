@@ -1,0 +1,53 @@
+{
+    "app": {
+        "name": "hopeit.feature-store",
+        "version": "${HOPEIT_FEATURE_STORE_APP_VERSION}"
+    },
+    "plugins": [],
+    "engine": {},
+    "env": {},
+    "settings": {
+        "save_values_batch": {
+            "path": "${HOPEIT_FEATURE_STORE_DATA_PATH}/${HOPEIT_FEATURE_STORE_APP_VERSION}/{auto}",
+            "partition_dateformat": "%Y/%m/%d/%H/",
+            "flush_seconds": 60.0,
+            "flush_max_size": 10000
+        }
+    },
+    "events": {
+        "create_feature": {
+            "type": "POST"
+        },
+        "set_values": {
+            "type": "POST",
+            "write_stream": {
+                "name": "{auto}"
+            }
+        },
+        "online_storage.query": {
+            "type": "POST"
+        },
+        "online_storage.save": {
+            "type": "STREAM",
+            "read_stream": {
+                "name": "{events.set_values.write_stream.name}",
+                "consumer_group": "{auto}"
+            }
+        },
+        "batch_storage.save": {
+            "type": "STREAM",
+            "read_stream": {
+                "name": "{events.set_values.write_stream.name}",
+                "consumer_group": "{auto}"
+            },
+            "impl": "hopeit.fs_storage.events.stream_batch_storage",
+            "dataobjects": []
+        },
+        "batch_storage.submit_query": {
+            "type": "POST",
+            "write_stream": {
+                "name": "{auto}"
+            }
+        }
+    }
+}
