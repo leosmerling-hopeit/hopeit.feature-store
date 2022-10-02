@@ -1,0 +1,1 @@
+hopeit.engine[web,cli,redis-streams,config-manager,apps-visualizer]
