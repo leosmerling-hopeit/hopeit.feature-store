@@ -19,4 +19,11 @@ start-app:
 	HOPEIT_FEATURE_STORE_APP_VERSION=0.1 \
 	HOPEIT_FEATURE_STORE_DATA_PATH=./_data \
 	HOPEIT_FEATURE_STORE_WORK_DIR=./_work \
-	hopeit_server run --config-files=ops/server/server-config-local.json,apps/feature-store/config/feature-store.json
+	hopeit_server run --port=8020 --config-files=ops/server/server-config-local.json,ops/config-manager/plugin-config.json,apps/feature-store/config/feature-store.json
+
+start-ops:
+	HOPEIT_FEATURE_STORE_APP_VERSION=0.1 \
+	HOPEIT_FEATURE_STORE_DATA_PATH=./_data \
+	HOPEIT_FEATURE_STORE_WORK_DIR=./_work \
+	HOPEIT_APPS_VISUALIZER_HOSTS=http://localhost:8020 \
+	hopeit_server run --port=8040 --config-files=ops/server/server-config-local.json,ops/config-manager/plugin-config.json,ops/apps-visualizer/plugin-config.json

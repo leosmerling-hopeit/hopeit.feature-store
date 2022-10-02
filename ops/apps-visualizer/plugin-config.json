@@ -1,0 +1,43 @@
+{
+    "app": {
+        "name": "apps-visualizer",
+        "version": "${HOPEIT_APPS_API_VERSION}"
+    },
+    "engine" : {
+        "import_modules": ["hopeit.apps_visualizer"],
+        "cors_origin": "http://localhost:8020"
+    },
+    "settings": {
+        "apps_visualizer": {
+            "hosts": "${HOPEIT_APPS_VISUALIZER_HOSTS}",
+            "refresh_hosts_seconds": 60,
+            "live_recent_treshold_seconds": 10,
+            "live_active_treshold_seconds": 60
+        }
+    },
+    "events": {
+        "site.main": {
+            "type": "GET",
+            "auth": ["Unsecured"],
+            "route": "/ops/apps-visualizer",
+            "setting_keys": ["apps_visualizer"]
+        },
+        "apps.events-graph": {
+            "type": "GET",
+            "auth": ["Unsecured"],
+            "setting_keys": ["apps_visualizer"]
+        },
+        "event-stats.collect": {
+            "type": "STREAM",
+            "read_stream": {
+                "name": "hopeit.log-streamer.logs",
+                "consumer_group": "{auto}"
+            }
+        },
+        "event-stats.live": {
+            "type": "GET",
+            "auth": ["Unsecured"],
+            "setting_keys": ["apps_visualizer"]
+        }
+    }
+}
